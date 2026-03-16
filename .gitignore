@@ -1,0 +1,36 @@
+node_modules/
+.env
+.env.local
+.env.production
+*.pem
+dist/
+build/
+uploads/
+logs/
+.DS_Store
+*.log
+coverage/
+
+# Testing
+.jest-cache/
+jest_html_reporters.html
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+
+# Temp
+*.tmp
+*.temp
+
+# Backend specific
+backend/uploads/
+backend/logs/
+
+# Frontend specific  
+frontend/dist/

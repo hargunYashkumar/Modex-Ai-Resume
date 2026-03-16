@@ -1,0 +1,12 @@
+node_modules
+.env
+.env.*
+uploads
+logs
+coverage
+src/__tests__
+*.test.js
+nodemon.json
+.git
+README.md
+# Note: entrypoint.sh IS included (needed by Docker CMD)

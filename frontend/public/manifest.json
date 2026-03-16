@@ -1,0 +1,21 @@
+{
+  "name": "Modex",
+  "short_name": "Modex",
+  "description": "AI-powered resume builder with job matching and course recommendations",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAFAF8",
+  "theme_color": "#1C2540",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "business"],
+  "lang": "en",
+  "dir": "ltr"
+}

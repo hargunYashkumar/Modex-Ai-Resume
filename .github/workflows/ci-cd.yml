@@ -1,0 +1,141 @@
+name: CI/CD — ResumeAI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ── Backend tests ─────────────────────────────────────────────────────────
+  test-backend:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB:       resumeai_test
+          POSTGRES_USER:     postgres
+          POSTGRES_PASSWORD: password
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: backend/package.json
+
+      - name: Install backend deps
+        run: npm install
+        working-directory: backend
+
+      - name: Run migrations
+        run: npm run db:migrate
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql://postgres:password@localhost:5432/resumeai_test
+          NODE_ENV: test
+
+      - name: Run tests
+        run: npm test
+        working-directory: backend
+        env:
+          DATABASE_URL:      postgresql://postgres:password@localhost:5432/resumeai_test
+          JWT_SECRET:        test-secret-for-ci-only-not-used-in-prod
+          NODE_ENV:          test
+          # AI routes are mocked in tests — real key not needed
+          ANTHROPIC_API_KEY: test-placeholder
+          GOOGLE_CLIENT_ID:  test-placeholder
+          FRONTEND_URL:      http://localhost:3000
+
+  # ── Frontend build ────────────────────────────────────────────────────────
+  build-frontend:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package.json
+
+      - name: Install frontend deps
+        run: npm install
+        working-directory: frontend
+
+      - name: Type-check (ESLint)
+        run: npm run lint || true       # non-blocking for now
+        working-directory: frontend
+
+      - name: Build frontend
+        run: npm run build
+        working-directory: frontend
+        env:
+          VITE_API_URL:          /api
+          VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist/
+          retention-days: 1
+
+  # ── Deploy to EC2 (only on push to main, skip on PRs) ─────────────────────
+  deploy:
+    name: Deploy to AWS EC2
+    needs: [test-backend, build-frontend]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download frontend build
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host:     ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key:      ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+            cd ~/resumeai
+
+            echo "📦 Pulling latest code..."
+            git pull origin main
+
+            echo "🔧 Updating backend..."
+            cd backend
+            npm install --production
+            npm run db:migrate
+            pm2 reload resumeai-backend || pm2 start ecosystem.config.js --env production
+            pm2 save
+
+            echo "🏗  Deploying frontend..."
+            cd ../frontend
+            npm install
+            npm run build
+            sudo cp -r dist/* /var/www/html/
+
+            echo "✅ Deploy complete — $(date)"

@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /resumes
+Disallow: /jobs
+Disallow: /courses
+Disallow: /profile
+Disallow: /api/
+
+# Allow public resume shares to be indexed
+Allow: /r/
+
+Sitemap: https://yourdomain.com/sitemap.xml
