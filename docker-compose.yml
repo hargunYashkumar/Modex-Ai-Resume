@@ -3,10 +3,10 @@ version: '3.9'
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: resumeai_db
+    container_name: modex_db
     restart: unless-stopped
     environment:
-      POSTGRES_DB:       resumeai_db
+      POSTGRES_DB:       modex_db
       POSTGRES_USER:     postgres
       POSTGRES_PASSWORD: password
     volumes:
@@ -23,7 +23,7 @@ services:
     build:
       context:    ./backend
       dockerfile: Dockerfile
-    container_name: resumeai_backend
+    container_name: modex_backend
     restart: unless-stopped
     depends_on:
       postgres:
@@ -31,14 +31,14 @@ services:
     environment:
       NODE_ENV:              production
       PORT:                  5000
-      DATABASE_URL:          postgresql://postgres:password@postgres:5432/resumeai_db
+      DATABASE_URL:          postgresql://postgres:password@postgres:5432/modex_db
       JWT_SECRET:            ${JWT_SECRET}
       GOOGLE_CLIENT_ID:      ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET:  ${GOOGLE_CLIENT_SECRET}
       ANTHROPIC_API_KEY:     ${ANTHROPIC_API_KEY}
       FRONTEND_URL:          ${FRONTEND_URL:-http://localhost}
       EMAIL_PROVIDER:        ${EMAIL_PROVIDER:-log}
-      EMAIL_FROM:            ${EMAIL_FROM:-noreply@resumeai.app}
+      EMAIL_FROM:            ${EMAIL_FROM:-noreply@modex.app}
       AWS_ACCESS_KEY_ID:     ${AWS_ACCESS_KEY_ID:-}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
       AWS_REGION:            ${AWS_REGION:-ap-south-1}
@@ -61,7 +61,7 @@ services:
       args:
         VITE_API_URL:          /api
         VITE_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-    container_name: resumeai_frontend
+    container_name: modex_frontend
     restart: unless-stopped
     depends_on:
       - backend
@@ -72,7 +72,7 @@ services:
   # Start with: docker-compose --profile dev up
   pgadmin:
     image: dpage/pgadmin4:latest
-    container_name: resumeai_pgadmin
+    container_name: modex_pgadmin
     restart: unless-stopped
     profiles: ["dev"]
     environment:

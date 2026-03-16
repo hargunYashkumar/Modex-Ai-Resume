@@ -1,4 +1,4 @@
-# ResumeAI — Local Setup Guide
+# Modex — Local Setup Guide
 
 ## Prerequisites
 
@@ -19,7 +19,7 @@
 
 ### Google OAuth 2.0
 1. Go to https://console.cloud.google.com
-2. Create project → **ResumeAI**
+2. Create project → **Modex**
 3. APIs & Services → Credentials → **Create OAuth 2.0 Client ID**
 4. Application type: **Web application**
 5. Authorised JavaScript origins:
@@ -38,11 +38,10 @@
 psql -U postgres
 
 # Create database
-CREATE DATABASE resumeai_db;
-\q
+psql -U postgres -c "CREATE DATABASE modex_db;"
 ```
 
-Or with a GUI like TablePlus / pgAdmin — just create a database named `resumeai_db`.
+Or with a GUI like TablePlus / pgAdmin — just create a database named `modex_db`.
 
 ---
 
@@ -54,7 +53,7 @@ NODE_ENV=development
 PORT=5000
 
 # Replace with your actual values:
-DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/resumeai_db
+DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/modex_db
 JWT_SECRET=change-this-to-a-random-64-char-string
 GOOGLE_CLIENT_ID=xxx.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=GOCSPX-xxx
@@ -67,7 +66,7 @@ Generate a JWT secret:
 node -e "console.log(require('crypto').randomBytes(48).toString('base64'))"
 ```
 
-### frontend/.env.local
+### frontend/.env
 ```env
 VITE_API_URL=/api
 VITE_GOOGLE_CLIENT_ID=xxx.apps.googleusercontent.com
@@ -123,7 +122,7 @@ Then open **http://localhost:3000** in your browser.
 ## 6. Test the App
 
 If you ran `db:seed`, you can log in with:
-- **Email:** `demo@resumeai.app`
+- **Email:** `demo@modex.app`
 - **Password:** `demo1234`
 
 Or register a new account (email/password or Google).
@@ -149,7 +148,7 @@ If you prefer Docker (no Node.js or Postgres installation needed):
 ```bash
 # Copy env files
 cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env.local
+cp frontend/.env.example frontend/.env
 # Edit both files with your API keys
 
 # Start everything

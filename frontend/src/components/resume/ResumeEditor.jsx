@@ -227,7 +227,7 @@ function ProjectsForm({ items, onChange }) {
             <span className="text-xs font-medium text-ink-500">{item.name || 'New project'}</span>
             <button onClick={() => remove(i)} className="text-danger text-xs">×</button>
           </div>
-          <Field label="Project name" value={item.name} onChange={v => update(i,'name',v)} placeholder="ResumeAI" />
+          <Field label="Project name" value={item.name} onChange={v => update(i,'name',v)} placeholder="Modex" />
           <div>
             <label className="label">Description</label>
             <textarea className="textarea text-xs py-2 min-h-16" rows={2} value={item.description || ''} onChange={e => update(i,'description',e.target.value)} placeholder="Built a full-stack app..." />

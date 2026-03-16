@@ -4,7 +4,7 @@
 module.exports = {
   apps: [
     {
-      name: 'resumeai-backend',
+      name: 'modex-backend',
       script: 'src/server.js',
       cwd: './backend',
 
@@ -43,8 +43,8 @@ module.exports = {
       user:   'ubuntu',
       host:   'YOUR_EC2_PUBLIC_IP',
       ref:    'origin/main',
-      repo:   'git@github.com:yourusername/resumeai.git',
-      path:   '/home/ubuntu/resumeai',
+      repo:   'git@github.com:hargunYashkumar/MODEX.git',
+      path:   '/home/ubuntu/modex',
       'post-deploy': [
         'cd backend && npm install --production',
         'npm run db:migrate',

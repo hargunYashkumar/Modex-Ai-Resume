@@ -58,12 +58,10 @@ export default function ResetPasswordPage() {
       >
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 mb-10">
-          <div className="w-7 h-7 bg-ink-700 rounded flex items-center justify-center">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
+          <div className="w-7 h-7 flex items-center justify-center">
+            <img src="https://raw.githubusercontent.com/hargunYashkumar/MODEX/main/Gemini_Generated_Image_ebda0mebda0mebda%20(1)%20-%20Copy.png" alt="Modex Logo" className="w-full h-full object-contain" />
           </div>
-          <span className="font-serif font-medium text-ink-700 text-lg">ResumeAI</span>
+          <span className="font-serif font-medium text-ink-700 text-lg">Modex</span>
         </Link>
 
         {mode === 'forgot' && !sent && (

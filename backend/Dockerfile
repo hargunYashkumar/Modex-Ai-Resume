@@ -23,10 +23,10 @@ COPY entrypoint.sh ./
 RUN mkdir -p uploads logs && \
     chmod +x entrypoint.sh && \
     addgroup -g 1001 -S nodejs && \
-    adduser  -S resumeai -u 1001 && \
-    chown -R resumeai:nodejs /app
+    adduser  -S modex -u 1001 && \
+    chown -R modex:nodejs /app
 
-USER resumeai
+USER modex
 
 EXPOSE 5000
 

@@ -1,4 +1,4 @@
-# ResumeAI Makefile
+# Modex Makefile
 # Usage: make <target>
 
 .PHONY: help setup dev build test migrate seed clean docker docker-dev logs deploy
@@ -10,7 +10,7 @@ RESET := \033[0m
 
 help: ## Show this help
 	@echo ""
-	@echo "  ResumeAI — available commands"
+	@echo "  Modex — available commands"
 	@echo ""
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 		awk 'BEGIN {FS = ":.*?## "}; {printf "  $(BLUE)%-18s$(RESET) %s\n", $$1, $$2}'
@@ -37,7 +37,7 @@ migrate: ## Run pending database migrations
 migrate-down: ## Roll back last migration
 	@cd backend && npm run db:migrate:down
 
-seed: ## Seed demo data (demo@resumeai.app / demo1234)
+seed: ## Seed demo data (demo@modex.app / demo1234)
 	@cd backend && npm run db:seed
 
 # ── Testing ───────────────────────────────────────────────────────────────────

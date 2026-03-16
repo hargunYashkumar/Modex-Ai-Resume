@@ -1,4 +1,4 @@
-# ResumeAI — Quickstart
+# Modex — Quickstart
 
 Get the app running locally in under 10 minutes.
 
@@ -20,7 +20,7 @@ Get the app running locally in under 10 minutes.
 2. Copy the `sk-ant-...` key
 
 ### Google OAuth
-1. Go to https://console.cloud.google.com → Create project **ResumeAI**
+1. Go to https://console.cloud.google.com → Create project **Modex**
 2. APIs & Services → Credentials → Create OAuth 2.0 Client ID → **Web application**
 3. Add Authorised JavaScript origins: `http://localhost:3000`
 4. Add Authorised redirect URIs: `http://localhost:5000/api/auth/google/callback`
@@ -31,7 +31,7 @@ Get the app running locally in under 10 minutes.
 ## Step 2 — Create the database
 
 ```bash
-psql -U postgres -c "CREATE DATABASE resumeai_db;"
+psql -U postgres -c "CREATE DATABASE modex_db;"
 ```
 
 ---
@@ -39,8 +39,8 @@ psql -U postgres -c "CREATE DATABASE resumeai_db;"
 ## Step 3 — Configure environment
 
 ```bash
-git clone https://github.com/yourusername/resumeai.git
-cd resumeai
+git clone https://github.com/hargunYashkumar/MODEX.git
+cd MODEX
 
 # Backend
 cp backend/.env.example backend/.env
@@ -48,8 +48,8 @@ cp backend/.env.example backend/.env
 #   DATABASE_URL, JWT_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, ANTHROPIC_API_KEY
 
 # Frontend
-cp frontend/.env.example frontend/.env.local
-# Edit frontend/.env.local — fill in VITE_GOOGLE_CLIENT_ID
+cp frontend/.env.example frontend/.env
+# Edit frontend/.env — fill in VITE_GOOGLE_CLIENT_ID
 ```
 
 Generate a JWT secret:
@@ -81,7 +81,7 @@ make dev
 
 Open **http://localhost:3000**
 
-Demo login: `demo@resumeai.app` / `demo1234`
+Demo login: `demo@modex.app` / `demo1234`
 
 ---
 
@@ -89,7 +89,7 @@ Demo login: `demo@resumeai.app` / `demo1234`
 
 ```bash
 cp backend/.env.example backend/.env   # fill in your API keys
-cp frontend/.env.example frontend/.env.local
+cp frontend/.env.example frontend/.env
 
 docker-compose up --build
 
@@ -153,7 +153,7 @@ See `docs/AWS_DEPLOYMENT.md` for a full 13-step guide.
 ## Project structure
 
 ```
-resumeai/
+modex/
 ├── backend/           Node.js + Express API
 │   ├── src/
 │   │   ├── routes/    auth, resumes, ai, jobs, courses, share, users

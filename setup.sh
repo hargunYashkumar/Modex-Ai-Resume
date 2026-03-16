@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# setup.sh — First-time local setup for ResumeAI
+# setup.sh — First-time local setup for Modex
 # Usage: bash setup.sh
 # Requires: Node.js 20+, PostgreSQL running locally
 
@@ -44,12 +44,12 @@ fi
 # ── Frontend .env ─────────────────────────────────────────────────────────
 step "Setting up frontend environment"
 
-if [ ! -f frontend/.env.local ]; then
-  cp frontend/.env.example frontend/.env.local
-  warn "Created frontend/.env.local — fill in VITE_GOOGLE_CLIENT_ID"
-  read -p "Press Enter after editing frontend/.env.local to continue..." _
+if [ ! -f frontend/.env ]; then
+  cp frontend/.env.example frontend/.env
+  warn "Created frontend/.env — fill in VITE_GOOGLE_CLIENT_ID"
+  read -p "Press Enter after editing frontend/.env to continue..." _
 else
-  success "frontend/.env.local already exists"
+  success "frontend/.env already exists"
 fi
 
 # ── Install dependencies ──────────────────────────────────────────────────
@@ -76,7 +76,7 @@ npm run db:migrate && success "Migrations complete"
 
 read -p "Seed demo data? (demo account + sample resume) [y/N] " SEED
 if [[ "$SEED" =~ ^[Yy]$ ]]; then
-  npm run db:seed && success "Demo data seeded (demo@resumeai.app / demo1234)"
+  npm run db:seed && success "Demo data seeded (demo@modex.app / demo1234)"
 fi
 
 cd ..
@@ -84,7 +84,7 @@ cd ..
 # ── Done ──────────────────────────────────────────────────────────────────
 echo ""
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${GREEN}  ✅ ResumeAI is ready!${NC}"
+echo -e "${GREEN}  ✅ Modex is ready!${NC}"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 echo "  Start the app:"
@@ -95,5 +95,5 @@ echo ""
 echo "  Or with Docker:"
 echo -e "    ${BLUE}docker-compose up --build${NC}"
 echo ""
-echo "  Demo login: demo@resumeai.app / demo1234"
+echo "  Demo login: demo@modex.app / demo1234"
 echo ""

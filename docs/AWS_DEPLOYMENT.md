@@ -1,4 +1,4 @@
-# ResumeAI — Complete AWS Deployment Guide
+# Modex — Complete AWS Deployment Guide
 # Free Tier Optimised · Estimated Monthly Cost: $0–5
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -58,8 +58,8 @@
   $ cp backend/.env.example backend/.env
   # Edit backend/.env — fill in all values
   
-  $ cp frontend/.env.example frontend/.env.local
-  # Edit frontend/.env.local — fill VITE_GOOGLE_CLIENT_ID
+  $ cp frontend/.env.example frontend/.env
+  # Edit frontend/.env — fill VITE_GOOGLE_CLIENT_ID
   
   $ docker-compose up --build
   # Visit http://localhost → frontend
@@ -77,7 +77,7 @@
   Terminal 2 (Frontend):
     $ cd frontend
     $ npm install
-    $ cp .env.example .env.local  # fill values
+    $ cp .env.example .env  # fill values
     $ npm run dev
   # Visit http://localhost:3000
 
@@ -92,7 +92,7 @@ AWS Console → RDS → Create database
     Engine:                  PostgreSQL 16
     Template:                Free tier
     DB instance class:       db.t3.micro
-    DB instance identifier:  resumeai-db
+    DB instance identifier:  modex-db
     Master username:         postgres
     Master password:         [strong password — save this]
     
@@ -103,10 +103,10 @@ AWS Console → RDS → Create database
   Connectivity:
     VPC:                     Default VPC
     Public access:           YES (for initial setup, restrict later)
-    VPC security group:      Create new → name: resumeai-rds-sg
+    VPC security group:      Create new → name: modex-rds-sg
     
   Additional config:
-    Initial database name:   resumeai_db
+    Initial database name:   modex_db
     Backup retention:        7 days
     
   → Click "Create database" (takes ~5 minutes)
@@ -121,10 +121,10 @@ AWS Console → RDS → Create database
 
 AWS Console → EC2 → Launch Instance
 
-  Name:            resumeai-server
+  Name:            modex-server
   AMI:             Ubuntu Server 24.04 LTS (64-bit x86)
   Instance type:   t2.micro (Free tier eligible)
-  Key pair:        Create new → resumeai-key → Download .pem
+  Key pair:        Create new → modex-key → Download .pem
   
   Network settings:
     Create security group: resumeai-sg
@@ -186,8 +186,8 @@ This allows only your EC2 to connect to RDS.
 # On EC2 server:
 
 # Clone your repository
-  $ git clone https://github.com/yourusername/resumeai.git
-  $ cd resumeai
+  $ git clone https://github.com/hargunYashkumar/MODEX.git
+  $ cd MODEX
 
 # ── Backend setup ──
   $ cd backend
@@ -210,7 +210,7 @@ This allows only your EC2 to connect to RDS.
   $ npm run db:migrate
 
   # Start backend with PM2
-  $ pm2 start src/server.js --name resumeai-backend
+  $ pm2 start src/server.js --name modex-backend
   $ pm2 save
   $ pm2 startup  # follow the printed command to auto-start on reboot
 
@@ -268,7 +268,7 @@ This allows only your EC2 to connect to RDS.
   }
   ─────────────────────────────────────────
 
-  $ sudo ln -s /etc/nginx/sites-available/resumeai /etc/nginx/sites-enabled/
+  $ sudo ln -s /etc/nginx/sites-available/modex /etc/nginx/sites-enabled/
   $ sudo rm /etc/nginx/sites-enabled/default
   $ sudo nginx -t       # test config
   $ sudo systemctl reload nginx
@@ -340,7 +340,7 @@ Save as deploy.sh in project root:
   cd backend
   npm install --production
   npm run db:migrate
-  pm2 restart resumeai-backend
+  pm2 restart modex-backend
   
   # Frontend
   cd ../frontend
@@ -359,7 +359,7 @@ Save as deploy.sh in project root:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   # View backend logs
-  $ pm2 logs resumeai-backend
+  $ pm2 logs modex-backend
 
   # View Nginx access/error logs
   $ sudo tail -f /var/log/nginx/access.log

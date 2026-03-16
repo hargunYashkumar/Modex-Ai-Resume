@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # deploy.sh — Zero-downtime deployment script for EC2
 # Usage: bash deploy.sh [--skip-frontend] [--skip-migrate]
-# Run from: /home/ubuntu/resumeai on the EC2 instance
+# Run from: /home/ubuntu/modex on the EC2 instance
 
 set -e
 
@@ -40,8 +40,8 @@ if [ "$SKIP_MIGRATE" = false ]; then
 fi
 
 info "Reloading backend process (zero-downtime)..."
-if pm2 describe resumeai-backend > /dev/null 2>&1; then
-  pm2 reload resumeai-backend
+if pm2 describe modex-backend > /dev/null 2>&1; then
+  pm2 reload modex-backend
 else
   pm2 start ecosystem.config.js --env production
 fi

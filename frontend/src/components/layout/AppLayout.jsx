@@ -100,7 +100,7 @@ function SidebarContent({ collapsed, user, onLogout, onNav }) {
       {/* Logo */}
       <div className="flex items-center gap-3 px-4 py-5 border-b border-ink-600">
         <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-          <img src="/logo.png" alt="Modex Logo" className="w-full h-full object-contain" />
+          <img src="https://raw.githubusercontent.com/hargunYashkumar/MODEX/main/Gemini_Generated_Image_ebda0mebda0mebda%20(1)%20-%20Copy.png" alt="Modex Logo" className="w-full h-full object-contain" />
         </div>
         {!collapsed && (
           <span className="font-serif font-medium text-stone-50 text-lg tracking-tight whitespace-nowrap">Modex</span>

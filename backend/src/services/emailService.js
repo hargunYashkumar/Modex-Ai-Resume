@@ -12,7 +12,7 @@
  */
 const logger = require('../utils/logger')
 
-const FROM    = process.env.EMAIL_FROM    || 'noreply@resumeai.app'
+const FROM    = process.env.EMAIL_FROM    || 'noreply@modex.app'
 const PROVIDER = process.env.EMAIL_PROVIDER || 'log'
 
 async function sendEmail({ to, subject, html, text }) {
@@ -54,7 +54,7 @@ async function sendEmail({ to, subject, html, text }) {
 async function sendPasswordReset(to, resetUrl) {
   return sendEmail({
     to,
-    subject: 'Reset your ResumeAI password',
+    subject: 'Reset your Modex password',
     html: `
       <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px">
         <h2 style="color:#1C2540;font-size:22px;margin-bottom:8px">Reset your password</h2>
@@ -70,14 +70,14 @@ async function sendPasswordReset(to, resetUrl) {
         </p>
       </div>
     `,
-    text: `Reset your ResumeAI password: ${resetUrl}\n\nThis link expires in 1 hour.`,
+    text: `Reset your Modex password: ${resetUrl}\n\nThis link expires in 1 hour.`,
   })
 }
 
 async function sendWelcome(to, name) {
   return sendEmail({
     to,
-    subject: `Welcome to ResumeAI, ${name}!`,
+    subject: `Welcome to Modex, ${name}!`,
     html: `
       <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px">
         <h2 style="color:#1C2540;font-size:22px;margin-bottom:8px">Welcome, ${name}!</h2>
@@ -90,7 +90,7 @@ async function sendWelcome(to, name) {
         </a>
       </div>
     `,
-    text: `Welcome to ResumeAI, ${name}! Get started: ${process.env.FRONTEND_URL}/resumes/new`,
+    text: `Welcome to Modex, ${name}! Get started: ${process.env.FRONTEND_URL}/resumes/new`,
   })
 }
 

@@ -136,7 +136,7 @@ app.use((err, req, res, next) => {
 // ─── Start Server ─────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  logger.info(`🚀 ResumeAI Server running on port ${PORT}`);
+  logger.info(`🚀 Modex Server running on port ${PORT}`);
   logger.info(`   Environment: ${process.env.NODE_ENV}`);
   logger.info(`   Frontend URL: ${process.env.FRONTEND_URL}`);
 });

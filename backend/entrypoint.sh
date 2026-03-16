@@ -4,7 +4,7 @@
 
 set -e
 
-echo "ResumeAI Backend starting..."
+echo "Modex Backend starting..."
 echo "  NODE_ENV: ${NODE_ENV:-development}"
 echo "  PORT:     ${PORT:-5000}"
 

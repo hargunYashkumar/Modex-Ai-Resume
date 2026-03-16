@@ -21,13 +21,13 @@ async function seed() {
 
     const userResult = await client.query(`
       INSERT INTO users (email, name, password_hash, is_email_verified, subscription_tier)
-      VALUES ('demo@resumeai.app', 'Demo User', $1, true, 'free')
+      VALUES ('demo@modex.app', 'Demo User', $1, true, 'free')
       ON CONFLICT (email) DO UPDATE SET name = EXCLUDED.name
       RETURNING id
     `, [passwordHash])
 
     const userId = userResult.rows[0].id
-    console.log(`  ✓ Demo user: demo@resumeai.app / demo1234  (id: ${userId})`)
+    console.log(`  ✓ Demo user: demo@modex.app / demo1234  (id: ${userId})`)
 
     // ── User profile ──────────────────────────────────────────────────────
     await client.query(`
@@ -43,7 +43,7 @@ async function seed() {
     const resumeContent = {
       personalInfo: {
         name: 'Demo User',
-        email: 'demo@resumeai.app',
+        email: 'demo@modex.app',
         phone: '+91 98765 43210',
         location: 'Bangalore, India',
         linkedinUrl: 'linkedin.com/in/demouser',
@@ -142,7 +142,7 @@ async function seed() {
 
     await client.query('COMMIT')
     console.log('\n✅ Seed complete!')
-    console.log('   Login: demo@resumeai.app  /  demo1234\n')
+    console.log('   Login: demo@modex.app  /  demo1234\n')
 
   } catch (err) {
     await client.query('ROLLBACK')

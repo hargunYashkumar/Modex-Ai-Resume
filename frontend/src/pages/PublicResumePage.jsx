@@ -16,7 +16,7 @@ export default function PublicResumePage() {
       .then(({ data }) => {
         setResume(data.resume)
         if (data.resume?.title) {
-          document.title = `${data.resume.title} — ResumeAI`
+          document.title = `${data.resume.title} — Modex`
         }
       })
       .catch(() => setNotFound(true))
@@ -34,7 +34,7 @@ export default function PublicResumePage() {
           <p className="text-sm text-ink-400 mb-6 leading-relaxed">
             This share link may have expired or been revoked.
           </p>
-          <Link to="/" className="btn-primary btn-sm">Go to ResumeAI</Link>
+          <Link to="/" className="btn-primary btn-sm">Go to Modex</Link>
         </div>
       </div>
     )
@@ -45,12 +45,10 @@ export default function PublicResumePage() {
       {/* Top bar */}
       <div className="bg-ink-700 border-b border-ink-600 py-3 px-6 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="w-6 h-6 bg-gold-400 rounded flex items-center justify-center flex-shrink-0">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1C2540" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
+          <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
+            <img src="https://raw.githubusercontent.com/hargunYashkumar/MODEX/main/Gemini_Generated_Image_ebda0mebda0mebda%20(1)%20-%20Copy.png" alt="Modex Logo" className="w-full h-full object-contain" />
           </div>
-          <span className="font-serif text-stone-200 text-base">ResumeAI</span>
+          <span className="font-serif text-stone-200 text-base">Modex</span>
         </div>
         <div className="flex items-center gap-3">
           {resume?.title && (
@@ -79,7 +77,7 @@ export default function PublicResumePage() {
       {/* Footer CTA */}
       <div className="py-8 px-6 text-center">
         <p className="text-sm text-ink-500 mb-3">
-          Created with <span className="font-medium text-ink-700">ResumeAI</span> — AI-powered resume builder
+          Created with <span className="font-medium text-ink-700">Modex</span> — AI-powered resume builder
         </p>
         <Link to="/auth?signup=1" className="btn-primary btn-sm">
           Build your resume for free

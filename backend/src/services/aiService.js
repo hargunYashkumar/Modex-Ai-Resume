@@ -89,7 +89,7 @@ function parseJSON(text) {
       education: [{ institution: 'State University', degree: 'BSCS', fieldOfStudy: 'Computer Science', startDate: '2016', endDate: '2020' }],
       skills: ['React', 'Node.js', 'PostgreSQL', 'Tailwind CSS'],
       certifications: [{ name: 'AWS Certified Developer', issuer: 'Amazon', issueDate: '2023' }],
-      projects: [{ name: 'ResumeAI', description: 'AI-powered resume builder', technologies: ['React', 'Node.js'], url: '' }]
+      projects: [{ name: 'Modex', description: 'AI-powered resume builder', technologies: ['React', 'Node.js'], url: '' }]
     };
   }
 

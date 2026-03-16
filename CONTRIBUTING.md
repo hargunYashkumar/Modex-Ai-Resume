@@ -1,4 +1,4 @@
-# Contributing to ResumeAI
+# Contributing to Modex
 
 Thank you for your interest in contributing!
 

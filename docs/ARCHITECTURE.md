@@ -1,4 +1,4 @@
-# ResumeAI — Architecture Reference
+# Modex — Architecture Reference
 
 ## System Overview
 
@@ -208,7 +208,7 @@ audit_logs            — immutable event log
 | `ANTHROPIC_API_KEY` | Yes | — | `sk-ant-...` |
 | `FRONTEND_URL` | Yes | http://localhost:3000 | For CORS + email links |
 | `EMAIL_PROVIDER` | No | log | `log` / `ses` / `sendgrid` |
-| `EMAIL_FROM` | No | noreply@resumeai.app | Sender address |
+| `EMAIL_FROM` | No | noreply@modex.app | Sender address |
 | `AWS_ACCESS_KEY_ID` | If S3 | — | |
 | `AWS_SECRET_ACCESS_KEY` | If S3 | — | |
 | `AWS_REGION` | If S3 | ap-south-1 | |

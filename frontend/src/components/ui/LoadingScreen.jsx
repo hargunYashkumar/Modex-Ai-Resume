@@ -12,12 +12,9 @@ export default function LoadingScreen() {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="w-14 h-14 bg-gold-400 rounded-lg flex items-center justify-center"
+        className="w-14 h-14 flex items-center justify-center"
       >
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1C2540" strokeWidth="2.5">
-          <path strokeLinecap="round" strokeLinejoin="round"
-            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-        </svg>
+        <img src="https://raw.githubusercontent.com/hargunYashkumar/MODEX/main/Gemini_Generated_Image_ebda0mebda0mebda%20(1)%20-%20Copy.png" alt="Modex Logo" className="w-full h-full object-contain" />
       </motion.div>
 
       {/* Wordmark */}
@@ -27,7 +24,7 @@ export default function LoadingScreen() {
         transition={{ duration: 0.4, delay: 0.15 }}
         className="font-serif text-stone-200 text-xl tracking-tight"
       >
-        ResumeAI
+        Modex
       </motion.span>
 
       {/* Spinner */}

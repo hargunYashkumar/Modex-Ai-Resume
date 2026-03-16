@@ -1,4 +1,4 @@
-# ResumeAI 🚀
+# Modex 🚀
 
 An AI-powered resume builder with job matching, skill gap analysis, and course recommendations — built with React, Node.js, PostgreSQL, and Claude AI.
 
@@ -34,21 +34,21 @@ An AI-powered resume builder with job matching, skill gap analysis, and course r
 ## Quick Start
 
 ```bash
-git clone https://github.com/yourusername/resumeai.git
-cd resumeai
+git clone https://github.com/hargunYashkumar/MODEX.git
+cd MODEX
 make setup          # guided first-time setup
 make dev            # starts backend :5000 + frontend :3000
 ```
 
 Or read [`QUICKSTART.md`](QUICKSTART.md) for step-by-step instructions.
 
-Demo login after seeding: `demo@resumeai.app` / `demo1234`
+Demo login after seeding: `demo@modex.app` / `demo1234`
 
 ## Docker
 
 ```bash
 cp backend/.env.example backend/.env     # fill in API keys
-cp frontend/.env.example frontend/.env.local
+cp frontend/.env.example frontend/.env
 docker-compose up --build
 # First run: docker-compose exec backend npm run db:migrate && npm run db:seed
 ```
@@ -58,7 +58,7 @@ Add `--profile dev` for pgAdmin at http://localhost:5050.
 ## Project Structure
 
 ```
-resumeai/
+modex/
 ├── backend/
 │   ├── src/
 │   │   ├── __tests__/    6 test files (Jest + Supertest)

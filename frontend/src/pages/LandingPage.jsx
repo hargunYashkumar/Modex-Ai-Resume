@@ -30,12 +30,10 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-stone-50/90 backdrop-blur-sm border-b border-stone-200">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 bg-ink-700 rounded flex items-center justify-center">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-              </svg>
+            <div className="w-7 h-7 flex items-center justify-center">
+              <img src="https://raw.githubusercontent.com/hargunYashkumar/MODEX/main/Gemini_Generated_Image_ebda0mebda0mebda%20(1)%20-%20Copy.png" alt="Modex Logo" className="w-full h-full object-contain" />
             </div>
-            <span className="font-serif font-medium text-ink-700 text-lg">ResumeAI</span>
+            <span className="font-serif font-medium text-ink-700 text-lg">Modex</span>
           </div>
           <div className="flex items-center gap-3">
             <Link to="/auth" className="text-sm text-ink-500 hover:text-ink-700 transition-colors font-medium">Sign in</Link>
@@ -56,14 +54,6 @@ export default function LandingPage() {
         <motion.div style={{ y: heroY, opacity: heroOpacity }}
           className="relative z-10 max-w-5xl mx-auto px-6 text-center">
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-stone-200 rounded text-xs font-medium text-ink-500 mb-8"
-          >
-            <span className="w-1.5 h-1.5 bg-gold-400 rounded-full animate-pulse-slow" />
-            Powered by Claude AI
-          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
@@ -171,11 +161,11 @@ export default function LandingPage() {
       {/* ── Footer ── */}
       <footer className="py-8 px-6 bg-ink-800 border-t border-ink-600">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="font-serif text-ink-300">ResumeAI</span>
+          <span className="font-serif text-ink-300">Modex</span>
           <div className="flex items-center gap-5">
             <Link to="/legal/terms"   className="text-xs text-ink-400 hover:text-ink-200 transition-colors">Terms</Link>
             <Link to="/legal/privacy" className="text-xs text-ink-400 hover:text-ink-200 transition-colors">Privacy</Link>
-            <p className="text-xs text-ink-500">© {new Date().getFullYear()} ResumeAI</p>
+            <p className="text-xs text-ink-500">© {new Date().getFullYear()} Modex</p>
           </div>
         </div>
       </footer>

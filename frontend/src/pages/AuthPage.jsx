@@ -81,12 +81,10 @@ export default function AuthPage() {
         <div className="absolute top-0 right-0 w-64 h-64 bg-gold-400/10 rounded-full blur-3xl" />
 
         <Link to="/" className="relative flex items-center gap-2.5 z-10">
-          <div className="w-8 h-8 bg-gold-400 rounded flex items-center justify-center">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1C2540" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
+          <div className="w-8 h-8 flex items-center justify-center">
+              <img src="https://raw.githubusercontent.com/hargunYashkumar/MODEX/main/Gemini_Generated_Image_ebda0mebda0mebda%20(1)%20-%20Copy.png" alt="Modex Logo" className="w-full h-full object-contain" />
           </div>
-          <span className="font-serif text-stone-50 text-xl">ResumeAI</span>
+          <span className="font-serif text-stone-50 text-xl">Modex</span>
         </Link>
 
         <div className="relative z-10">
@@ -102,7 +100,7 @@ export default function AuthPage() {
           </div>
         </div>
 
-        <p className="relative z-10 text-ink-300 text-xs">© {new Date().getFullYear()} ResumeAI</p>
+        <p className="relative z-10 text-ink-300 text-xs">© {new Date().getFullYear()} Modex</p>
       </div>
 
       {/* Right panel — auth form */}
@@ -114,12 +112,10 @@ export default function AuthPage() {
         >
           {/* Mobile logo */}
           <Link to="/" className="lg:hidden flex items-center gap-2 mb-8">
-            <div className="w-7 h-7 bg-ink-700 rounded flex items-center justify-center">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-              </svg>
+            <div className="w-7 h-7 flex items-center justify-center">
+                <img src="https://raw.githubusercontent.com/hargunYashkumar/MODEX/main/Gemini_Generated_Image_ebda0mebda0mebda%20(1)%20-%20Copy.png" alt="Modex Logo" className="w-full h-full object-contain" />
             </div>
-            <span className="font-serif font-medium text-ink-700 text-lg">ResumeAI</span>
+            <span className="font-serif font-medium text-ink-700 text-lg">Modex</span>
           </Link>
 
           <h1 className="text-3xl font-serif text-ink-800 mb-1">

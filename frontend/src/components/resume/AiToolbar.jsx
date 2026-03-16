@@ -22,7 +22,6 @@ export default function AiToolbar({ resume, onUpdate }) {
         <span className="text-gold-500 text-lg">✦</span>
         <h3 className="text-sm font-medium text-ink-700">AI Tools</h3>
       </div>
-      <p className="text-xs text-ink-400 mb-5">Powered by Claude AI</p>
 
       {/* Tabs */}
       <div className="flex gap-1 bg-stone-100 p-1 rounded mb-5 overflow-x-auto">

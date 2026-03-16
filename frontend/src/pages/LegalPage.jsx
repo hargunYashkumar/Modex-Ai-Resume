@@ -8,11 +8,11 @@ const CONTENT = {
     sections: [
       {
         heading: 'Acceptance of terms',
-        body: 'By accessing and using ResumeAI, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the service.',
+        body: 'By accessing and using Modex, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the service.',
       },
       {
         heading: 'Description of service',
-        body: 'ResumeAI provides AI-powered resume building, ATS scoring, job matching, and course recommendation services. Features are subject to change without notice.',
+        body: 'Modex provides AI-powered resume building, ATS scoring, job matching, and course recommendation services. Features are subject to change without notice.',
       },
       {
         heading: 'User accounts',
@@ -20,7 +20,7 @@ const CONTENT = {
       },
       {
         heading: 'User content',
-        body: 'You retain ownership of all resume content you create on ResumeAI. By using the service, you grant us a limited licence to process your content solely for the purpose of providing the service to you.',
+        body: 'You retain ownership of all resume content you create on Modex. By using the service, you grant us a limited licence to process your content solely for the purpose of providing the service to you.',
       },
       {
         heading: 'AI-generated content',
@@ -28,11 +28,11 @@ const CONTENT = {
       },
       {
         heading: 'Prohibited uses',
-        body: 'You may not use ResumeAI to create fraudulent resumes, misrepresent your qualifications, or violate any applicable law or regulation.',
+        body: 'You may not use Modex to create fraudulent resumes, misrepresent your qualifications, or violate any applicable law or regulation.',
       },
       {
         heading: 'Limitation of liability',
-        body: 'ResumeAI is provided "as is" without warranties of any kind. We are not liable for any damages arising from your use of the service, including job application outcomes.',
+        body: 'Modex is provided "as is" without warranties of any kind. We are not liable for any damages arising from your use of the service, including job application outcomes.',
       },
       {
         heading: 'Changes to terms',
@@ -40,7 +40,7 @@ const CONTENT = {
       },
       {
         heading: 'Contact',
-        body: 'For questions about these terms, contact us at legal@resumeai.app.',
+        body: 'For questions about these terms, contact us at legal@modex.app.',
       },
     ],
   },
@@ -66,11 +66,11 @@ const CONTENT = {
       },
       {
         heading: 'Data sharing',
-        body: 'We do not sell your personal information. We share data only with service providers necessary to operate ResumeAI (AWS, Anthropic) under strict data processing agreements.',
+        body: 'We do not sell your personal information. We share data only with service providers necessary to operate Modex (AWS, Anthropic) under strict data processing agreements.',
       },
       {
         heading: 'Your rights',
-        body: 'You have the right to access, correct, export, or delete your personal data at any time from your Profile settings. You may also request account deletion by contacting privacy@resumeai.app.',
+        body: 'You have the right to access, correct, export, or delete your personal data at any time from your Profile settings. You may also request account deletion by contacting privacy@modex.app.',
       },
       {
         heading: 'Cookies',
@@ -78,7 +78,7 @@ const CONTENT = {
       },
       {
         heading: 'Contact',
-        body: 'For privacy questions or data requests, contact privacy@resumeai.app.',
+        body: 'For privacy questions or data requests, contact privacy@modex.app.',
       },
     ],
   },
@@ -94,12 +94,10 @@ export default function LegalPage() {
       {/* Nav */}
       <nav className="bg-white border-b border-stone-200 px-6 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-ink-700 rounded flex items-center justify-center">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
+          <div className="w-7 h-7 flex items-center justify-center">
+            <img src="https://raw.githubusercontent.com/hargunYashkumar/MODEX/main/Gemini_Generated_Image_ebda0mebda0mebda%20(1)%20-%20Copy.png" alt="Modex Logo" className="w-full h-full object-contain" />
           </div>
-          <span className="font-serif font-medium text-ink-700">ResumeAI</span>
+          <span className="font-serif font-medium text-ink-700">Modex</span>
         </Link>
         <Link to="/auth" className="btn-outline btn-sm">Sign in</Link>
       </nav>
@@ -139,7 +137,7 @@ export default function LegalPage() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-stone-200">
-          <Link to="/" className="btn-outline btn-sm">← Back to ResumeAI</Link>
+          <Link to="/" className="btn-outline btn-sm">← Back to Modex</Link>
         </div>
       </div>
     </div>
