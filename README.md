@@ -1,7 +1,7 @@
 # Modex 🚀
 
 An AI-powered resume builder with job matching, skill gap analysis, and course recommendations — built with React, Node.js, PostgreSQL, and Claude AI.
-
+r
 ## Features
 
 - **AI Resume Parser** — upload PDF/DOCX, AI extracts every detail instantly
