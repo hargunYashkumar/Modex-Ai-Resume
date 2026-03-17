@@ -5,15 +5,15 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
 
-const logger        = require('./utils/logger');
+const logger = require('./utils/logger');
 const requestLogger = require('./middleware/requestLogger');
-const authRoutes   = require('./routes/auth');
+const authRoutes = require('./routes/auth');
 const resumeRoutes = require('./routes/resumes');
-const jobRoutes    = require('./routes/jobs');
+const jobRoutes = require('./routes/jobs');
 const courseRoutes = require('./routes/courses');
-const userRoutes   = require('./routes/users');
-const aiRoutes     = require('./routes/ai');
-const shareRoutes  = require('./routes/share');
+const userRoutes = require('./routes/users');
+const aiRoutes = require('./routes/ai');
+const shareRoutes = require('./routes/share');
 
 const app = express();
 
@@ -22,21 +22,34 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false,
   contentSecurityPolicy: {
     directives: {
-      defaultSrc:  ["'self'"],
-      scriptSrc:   ["'self'", "'unsafe-inline'", "https://accounts.google.com"],
-      styleSrc:    ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      fontSrc:     ["'self'", "https://fonts.gstatic.com"],
-      imgSrc:      ["'self'", "data:", "https:", "blob:"],
-      connectSrc:  ["'self'", "https://accounts.google.com"],
-      frameSrc:    ["https://accounts.google.com"],
-      objectSrc:   ["'none'"],
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://accounts.google.com"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:", "https:", "blob:"],
+      connectSrc: ["'self'", "https://accounts.google.com"],
+      frameSrc: ["https://accounts.google.com"],
+      objectSrc: ["'none'"],
       upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : null,
     },
   },
 }));
+// allow all origins
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://modex-ai-resume-frontend.vercel.app'
+];
 
 app.use(cors({
-  origin: true,
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -84,23 +97,23 @@ app.get('/health', async (req, res) => {
 
   const healthy = dbStatus === 'ok';
   res.status(healthy ? 200 : 503).json({
-    status:       healthy ? 'ok' : 'degraded',
-    timestamp:    new Date().toISOString(),
-    environment:  process.env.NODE_ENV,
-    uptime:       Math.floor(process.uptime()),
-    database:     { status: dbStatus, latencyMs: dbLatencyMs },
-    responseMs:   Date.now() - start,
+    status: healthy ? 'ok' : 'degraded',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV,
+    uptime: Math.floor(process.uptime()),
+    database: { status: dbStatus, latencyMs: dbLatencyMs },
+    responseMs: Date.now() - start,
   });
 });
 
 // ─── API Routes ───────────────────────────────────────────────────────────
-app.use('/api/auth',    authRoutes);
-app.use('/api/users',   userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/resumes', resumeRoutes);
-app.use('/api/jobs',    jobRoutes);
+app.use('/api/jobs', jobRoutes);
 app.use('/api/courses', courseRoutes);
-app.use('/api/ai',      aiRoutes);
-app.use('/api/share',   shareRoutes);
+app.use('/api/ai', aiRoutes);
+app.use('/api/share', shareRoutes);
 
 // ─── 404 Handler ──────────────────────────────────────────────────────────
 app.use((req, res) => {
@@ -130,12 +143,19 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ─── Start Server ─────────────────────────────────────────────────────────
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  logger.info(`🚀 Modex Server running on port ${PORT}`);
-  logger.info(`   Environment: ${process.env.NODE_ENV}`);
-  logger.info(`   Frontend URL: ${process.env.FRONTEND_URL}`);
+// ─── Unhandled Rejection Handler ──────────────────────────────────────────
+process.on('unhandledRejection', (reason, promise) => {
+  logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
+
+// ─── Start Server ─────────────────────────────────────────────────────────
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    logger.info(`🚀 Modex Server running on port ${PORT}`);
+    logger.info(`   Environment: ${process.env.NODE_ENV}`);
+    logger.info(`   Frontend URL: ${process.env.FRONTEND_URL}`);
+  });
+}
 
 module.exports = app;

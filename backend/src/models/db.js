@@ -15,7 +15,7 @@ pool.on('connect', () => {
 
 pool.on('error', (err) => {
   logger.error('Unexpected database error on idle client', err);
-  process.exit(-1);
+  // In serverless, we don't want to exit the process as it might be reused or handled by the platform
 });
 
 const query = async (text, params) => {
