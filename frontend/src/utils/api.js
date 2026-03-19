@@ -1,11 +1,16 @@
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
-const baseURL = import.meta.env.VITE_API_URL || '';
+const rawBaseURL = import.meta.env.VITE_API_URL || '';
+const baseURL = rawBaseURL.replace(/\/$/, '');
+
 const api = axios.create({
-  baseURL: baseURL.endsWith('/') ? baseURL.slice(0, -1) : baseURL,
+  baseURL: baseURL,
   timeout: 120000,
-  headers: { },
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
 })
 
 // ── Request interceptor ────────────────────────────────────────────────────

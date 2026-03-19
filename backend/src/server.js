@@ -35,10 +35,21 @@ app.use(helmet({
   },
 }));
 // allow all origins
+// allowed origins
 const allowedOrigins = [
   'http://localhost:3000',
+  'http://localhost:5173', // Add default Vite port
   'https://modex-ai-resume-frontend.vercel.app'
 ];
+
+// Add origins from environment variables
+if (process.env.FRONTEND_URL) {
+  allowedOrigins.push(process.env.FRONTEND_URL);
+}
+if (process.env.CORS_ALLOWED_ORIGINS) {
+  const envOrigins = process.env.CORS_ALLOWED_ORIGINS.split(',').map(o => o.trim());
+  allowedOrigins.push(...envOrigins);
+}
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -46,7 +57,6 @@ app.use(cors({
     if (!origin) return callback(null, true);
     
     const isAllowed = allowedOrigins.includes(origin) || 
-                     (process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL) ||
                      origin.endsWith('.vercel.app');
 
     if (isAllowed) {
