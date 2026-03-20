@@ -17,8 +17,9 @@ import ResetPasswordPage from './pages/ResetPasswordPage'
 import LegalPage         from './pages/LegalPage'
 
 // Layout + UI
-import AppLayout    from './components/layout/AppLayout'
-import LoadingScreen from './components/ui/LoadingScreen'
+import AppLayout     from './components/layout/AppLayout'
+import LoadingScreen  from './components/ui/LoadingScreen'
+import ErrorBoundary  from './components/ErrorBoundary'
 
 function ProtectedRoute({ children }) {
   const isAuthenticated = useAuthStore(s => s.isAuthenticated)
@@ -45,35 +46,37 @@ export default function App() {
   if (!hydrated) return <LoadingScreen />
 
   return (
-    <Routes>
-      {/* Public */}
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/auth" element={
-        <PublicRoute><AuthPage /></PublicRoute>
-      } />
+    <ErrorBoundary>
+      <Routes>
+        {/* Public */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/auth" element={
+          <PublicRoute><AuthPage /></PublicRoute>
+        } />
 
-      {/* Protected — inside app shell */}
-      <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
-        <Route path="/dashboard"         element={<DashboardPage />} />
-        <Route path="/resumes"           element={<ResumeListPage />} />
-        <Route path="/resumes/new"       element={<ResumeBuilder />} />
-        <Route path="/resumes/:id/edit"  element={<ResumeBuilder />} />
-        <Route path="/jobs"              element={<JobsPage />} />
-        <Route path="/courses"           element={<CoursesPage />} />
-        <Route path="/profile"           element={<ProfilePage />} />
-      </Route>
+        {/* Protected — inside app shell */}
+        <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
+          <Route path="/dashboard"         element={<DashboardPage />} />
+          <Route path="/resumes"           element={<ResumeListPage />} />
+          <Route path="/resumes/new"       element={<ResumeBuilder />} />
+          <Route path="/resumes/:id/edit"  element={<ResumeBuilder />} />
+          <Route path="/jobs"              element={<JobsPage />} />
+          <Route path="/courses"           element={<CoursesPage />} />
+          <Route path="/profile"           element={<ProfilePage />} />
+        </Route>
 
-      {/* Legal pages */}
-      <Route path="/legal/:type" element={<LegalPage />} />
+        {/* Legal pages */}
+        <Route path="/legal/:type" element={<LegalPage />} />
 
-      {/* Public resume share link — no auth required */}
-      <Route path="/r/:token" element={<PublicResumePage />} />
+        {/* Public resume share link — no auth required */}
+        <Route path="/r/:token" element={<PublicResumePage />} />
 
-      {/* Password reset — public, no auth required */}
-      <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
-      <Route path="/auth/forgot-password" element={<ResetPasswordPage />} />
+        {/* Password reset — public, no auth required */}
+        <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/auth/forgot-password" element={<ResetPasswordPage />} />
 
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </ErrorBoundary>
   )
 }

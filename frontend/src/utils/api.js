@@ -4,6 +4,10 @@ import toast from 'react-hot-toast'
 const rawBaseURL = import.meta.env.VITE_API_URL || '';
 const baseURL = rawBaseURL.replace(/\/$/, '');
 
+if (!rawBaseURL && import.meta.env.PROD) {
+  console.error('[API] CRITICAL: VITE_API_URL is not set in production. All API calls will fail. Set this in your Vercel Environment Variables.')
+}
+
 const api = axios.create({
   baseURL: baseURL,
   timeout: 120000,

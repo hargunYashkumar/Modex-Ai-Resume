@@ -6,6 +6,11 @@ import useAuthStore from '../store/authStore'
 import api from '../utils/api'
 import { useTitle } from '../hooks'
 
+// ── Diagnostic: warn if API URL is not configured ──────────────────────────
+if (!import.meta.env.VITE_API_URL) {
+  console.warn('[AuthPage] VITE_API_URL is not set. API calls may fail. Set it in Vercel Environment Variables.')
+}
+
 export default function AuthPage() {
   useTitle('Sign in')
   const [params] = useSearchParams()
@@ -15,6 +20,13 @@ export default function AuthPage() {
   const [googleLoaded, setGoogleLoaded] = useState(false)
   const { setAuth } = useAuthStore()
   const navigate = useNavigate()
+
+  // ── Diagnostic logging (equiv. to Next.js error boundary logging) ──────────
+  useEffect(() => {
+    console.debug('[AuthPage] Mounted. Mode:', mode, '| URL:', window.location.href)
+    console.debug('[AuthPage] VITE_API_URL:', import.meta.env.VITE_API_URL || '(not set — using relative path)')
+    console.debug('[AuthPage] Google Client ID:', import.meta.env.VITE_GOOGLE_CLIENT_ID ? 'set' : 'NOT SET')
+  }, [])
 
   // Initialize Google Sign-In
   useEffect(() => {
