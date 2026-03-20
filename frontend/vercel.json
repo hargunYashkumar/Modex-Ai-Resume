@@ -1,7 +1,7 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "http://localhost:5000/api/$1" },
+    { "source": "/api/(.*)", "destination": "https://modex-ai-resume-backend.vercel.app/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "cleanUrls": true,
