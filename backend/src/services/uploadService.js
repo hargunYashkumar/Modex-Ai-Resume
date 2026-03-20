@@ -32,8 +32,10 @@ async function uploadToS3(filePath, originalName, mimeType) {
 
 // ── Local disk upload ─────────────────────────────────────────────────────
 async function uploadToLocal(filePath, originalName) {
-  const uploadsDir = path.join(__dirname, '../../../uploads')
-  if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true })
+  const uploadsDir = process.env.VERCEL ? '/tmp' : path.join(__dirname, '../../../uploads')
+  if (!process.env.VERCEL && !fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true })
+  }
 
   const ext = path.extname(originalName)
   const filename = `${uuidv4()}${ext}`
