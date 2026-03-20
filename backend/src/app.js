@@ -122,14 +122,31 @@ app.get('/health', async (req, res) => {
   });
 });
 
+// Added root route for basic verification
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Modex API is running',
+    version: '1.0.0',
+    docs: '/health'
+  });
+});
+
 // ─── API Routes ───────────────────────────────────────────────────────────
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/resumes', resumeRoutes);
-app.use('/api/jobs', jobRoutes);
-app.use('/api/courses', courseRoutes);
-app.use('/api/ai', aiRoutes);
-app.use('/api/share', shareRoutes);
+// We mount them both with and without /api prefix for maximum compatibility
+const mountRoutes = (router) => {
+  router.use('/auth', authRoutes);
+  router.use('/users', userRoutes);
+  router.use('/resumes', resumeRoutes);
+  router.use('/jobs', jobRoutes);
+  router.use('/courses', courseRoutes);
+  router.use('/ai', aiRoutes);
+  router.use('/share', shareRoutes);
+};
+
+mountRoutes(app); // Mount directly (e.g., /auth/login)
+const apiRouter = express.Router();
+mountRoutes(apiRouter);
+app.use('/api', apiRouter); // Mount with prefix (e.g., /api/auth/login)
 
 // ─── 404 Handler ──────────────────────────────────────────────────────────
 app.use((req, res) => {
