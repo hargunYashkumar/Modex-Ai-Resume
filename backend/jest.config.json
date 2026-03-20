@@ -10,7 +10,7 @@
     "!src/utils/seed.js",
     "!src/__tests__/**"
   ],
-  "coverageThresholds": {
+  "coverageThreshold": {
     "global": {
       "branches": 40,
       "functions": 50,

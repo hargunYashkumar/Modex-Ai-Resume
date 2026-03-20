@@ -7,7 +7,7 @@
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "build": "echo 'No build step for Node.js'",
-    "test": "jest --detectOpenHandles",
+    "test": "jest --detectOpenHandles --runInBand",
     "db:migrate": "node-pg-migrate up",
     "db:migrate:down": "node-pg-migrate down",
     "db:seed": "node src/utils/seed.js"

@@ -3,7 +3,7 @@
  * Tests for AI route input validation and mocked AI responses.
  */
 const request = require('supertest')
-const app     = require('../server')
+const app     = require('../app')
 const { pool } = require('../models/db')
 
 jest.mock('../services/aiService', () => ({

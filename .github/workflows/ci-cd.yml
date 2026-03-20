@@ -52,6 +52,8 @@ jobs:
         working-directory: backend
         env:
           DATABASE_URL:      postgresql://postgres:password@localhost:5432/resumeai_test
+          DB_USER:           postgres
+          DB_PASSWORD:       password
           JWT_SECRET:        test-secret-for-ci-only-not-used-in-prod
           NODE_ENV:          test
           # AI routes are mocked in tests — real key not needed

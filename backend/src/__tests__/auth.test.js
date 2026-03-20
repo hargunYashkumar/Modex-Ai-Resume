@@ -4,7 +4,7 @@
  * Requires DATABASE_URL env var pointing to a test DB with migrations applied.
  */
 const request = require('supertest')
-const app     = require('../server')
+const app     = require('../app')
 const { pool } = require('../models/db')
 
 const TEST_USER = {
