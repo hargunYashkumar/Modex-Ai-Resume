@@ -29,7 +29,9 @@ async function ask(prompt, maxTokens = 2048, system = 'You are a professional re
   }
 
   if (!HF_TOKEN) {
-    throw new Error('HUGGINGFACE_API_KEY is not configured in .env');
+    const msg = 'HUGGINGFACE_API_KEY is not set. Please add it to your Vercel backend Environment Variables.';
+    logger.error(msg);
+    throw new Error(msg);
   }
 
   let lastError = null;
@@ -75,7 +77,12 @@ async function ask(prompt, maxTokens = 2048, system = 'You are a professional re
     }
   }
 
-  throw lastError || new Error('Hugging Face service failed to respond across all specified models.');
+  const errorMsg = lastError?.message || 'All HuggingFace models failed to respond.';
+  // Give a helpful hint for timeout errors
+  if (errorMsg.includes('timeout') || errorMsg.includes('ETIMEDOUT') || errorMsg.includes('network')) {
+    throw new Error('AI service timed out. HuggingFace models may be slow. Try again in a moment.');
+  }
+  throw lastError || new Error('HuggingFace service failed to respond across all specified models.');
 }
 
 /**
