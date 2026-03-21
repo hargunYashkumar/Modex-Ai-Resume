@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "build": "echo 'No build step for Node.js'",
+    "build": "node -e \"require('fs').mkdirSync('public',{recursive:true}); console.log('Backend serverless build prepared (public directory ensured).')\"",
     "test": "jest --detectOpenHandles --runInBand",
     "db:migrate": "node-pg-migrate up",
     "db:migrate:down": "node-pg-migrate down",
