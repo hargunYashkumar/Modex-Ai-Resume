@@ -39,7 +39,9 @@ export default function ResumeListPage() {
       try {
         const form = new FormData()
         form.append('resume', files[0])
-        const { data } = await api.post('/resumes/upload/parse', form)
+        const { data } = await api.post('/resumes/upload/parse', form, {
+          headers: { 'Content-Type': undefined }
+        })
         console.log('[Upload] Step 1: Text extracted. Length:', data.extractedText?.length)
 
         const { data: parsedRes } = await api.post('/ai/parse-resume', { text: data.extractedText })
