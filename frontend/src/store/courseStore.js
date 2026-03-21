@@ -11,7 +11,12 @@ const useCourseStore = create((set) => ({
     try {
       const { data } = await api.get('/courses/history')
       set({ history: data.recommendations })
-    } catch {}
+    } catch (error) {
+      if (import.meta.env.DEV) {
+        console.debug('[CourseStore] fetchHistory failed', error)
+      }
+      set({ history: [] })
+    }
   },
 
   getRecommendations: async ({ resumeContent, targetRole, resumeId }) => {

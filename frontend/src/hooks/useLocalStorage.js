@@ -32,7 +32,9 @@ export function useLocalStorage(key, initialValue) {
     try {
       window.localStorage.removeItem(key)
       setStoredValue(initialValue)
-    } catch {}
+    } catch (err) {
+      console.warn(`useLocalStorage: could not remove key "${key}"`, err)
+    }
   }
 
   return [storedValue, setValue, removeValue]

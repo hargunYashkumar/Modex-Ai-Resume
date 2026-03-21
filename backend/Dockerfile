@@ -12,6 +12,7 @@ WORKDIR /app
 
 # Copy deps from stage 1 (no npm in final image)
 COPY --from=deps /app/node_modules ./node_modules
+COPY package*.json ./
 
 # Copy application source
 COPY src/        ./src/

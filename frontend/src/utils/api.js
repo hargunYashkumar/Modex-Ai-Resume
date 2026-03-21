@@ -8,6 +8,10 @@ if (!rawBaseURL && import.meta.env.PROD) {
   console.error('[API] CRITICAL: VITE_API_URL is not set in production. All API calls will fail. Set this in your Vercel Environment Variables.')
 }
 
+if (import.meta.env.PROD && rawBaseURL.startsWith('/')) {
+  console.error('[API] CRITICAL: VITE_API_URL must be an absolute backend URL in production (e.g. https://your-backend.vercel.app). Relative paths are not supported in two-project Vercel deployment.')
+}
+
 const api = axios.create({
   baseURL: baseURL,
   timeout: 120000,

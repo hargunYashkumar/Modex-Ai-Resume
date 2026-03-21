@@ -11,6 +11,7 @@
 6. Add env vars:
    - `VITE_API_URL` = `https://modex-ai-resume-backend.vercel.app`
    - `VITE_GOOGLE_CLIENT_ID` = your Google OAuth client ID
+7. Do not set `VITE_API_URL` to `/api` in production when using two separate projects.
 
 ### Backend Project
 1. Go to Vercel Dashboard → New Project → Import **same** repo
@@ -27,6 +28,10 @@
    - `NODE_ENV` = `production`
    - `ANTHROPIC_API_KEY` = your key (if using Claude)
    - `GEMINI_API_KEY` = your key (if using Gemini)
+
+## Important
+- If you deploy as two projects, always choose the correct root directory (`frontend` or `backend`) in Vercel.
+- Production frontend should call backend using absolute `VITE_API_URL` (backend project URL).
 
 ## Why Two Projects?
 Vercel handles frontend (static) and backend (serverless) differently.

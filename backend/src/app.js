@@ -6,6 +6,7 @@ const rateLimit = require('express-rate-limit');
 const path = require('path');
 
 const logger = require('./utils/logger');
+const { UPLOADS_DIR } = require('./utils/paths');
 const requestLogger = require('./middleware/requestLogger');
 const authRoutes = require('./routes/auth');
 const resumeRoutes = require('./routes/resumes');
@@ -51,13 +52,36 @@ if (process.env.CORS_ALLOWED_ORIGINS) {
   allowedOrigins.push(...envOrigins);
 }
 
+const frontendHostname = (() => {
+  try {
+    if (!process.env.FRONTEND_URL) return null;
+    return new URL(process.env.FRONTEND_URL).hostname;
+  } catch (error) {
+    logger.warn('Invalid FRONTEND_URL for CORS hostname parsing');
+    return null;
+  }
+})();
+
+const isAllowedVercelPreview = (origin) => {
+  if (!origin || !frontendHostname || !frontendHostname.endsWith('.vercel.app')) return false;
+
+  try {
+    const originHostname = new URL(origin).hostname;
+    if (!originHostname.endsWith('.vercel.app')) return false;
+
+    const frontendProjectName = frontendHostname.replace('.vercel.app', '');
+    return originHostname === frontendHostname || originHostname.startsWith(`${frontendProjectName}-`);
+  } catch {
+    return false;
+  }
+};
+
 app.use(cors({
   origin: function (origin, callback) {
     // allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
-    const isAllowed = allowedOrigins.includes(origin) || 
-                     origin.endsWith('.vercel.app');
+    const isAllowed = allowedOrigins.includes(origin) || isAllowedVercelPreview(origin);
 
     if (isAllowed) {
       callback(null, true);
@@ -94,7 +118,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(requestLogger);
 
 // ─── Static Files ─────────────────────────────────────────────────────────
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/uploads', express.static(UPLOADS_DIR));
 
 // ─── Health Check ─────────────────────────────────────────────────────────
 app.get('/health', async (req, res) => {

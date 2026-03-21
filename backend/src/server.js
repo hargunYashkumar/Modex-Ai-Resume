@@ -1,6 +1,9 @@
 require('dotenv').config();
 const app = require('./app');
 const logger = require('./utils/logger');
+const { validateEnv } = require('./utils/env');
+
+validateEnv();
 
 // ─── Start Server ─────────────────────────────────────────────────────────
 if ((process.env.NODE_ENV !== 'production' || !process.env.VERCEL) && process.env.NODE_ENV !== 'test') {

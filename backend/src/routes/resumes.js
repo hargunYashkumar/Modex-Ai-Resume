@@ -9,9 +9,10 @@ const { authenticate } = require('../middleware/auth');
 const { asyncHandler } = require('../middleware/validate');
 const { auditLog } = require('../middleware/auditLog');
 const logger = require('../utils/logger');
+const { UPLOADS_DIR } = require('../utils/paths');
 
 // ─── Multer config ────────────────────────────────────────────────────────
-const uploadDir = process.env.VERCEL ? '/tmp' : path.join(__dirname, '../../uploads');
+const uploadDir = UPLOADS_DIR;
 if (!process.env.VERCEL && !fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
