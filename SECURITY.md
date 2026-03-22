@@ -47,7 +47,7 @@ Before going live, complete these steps:
 - [ ] Review and tighten EC2 Security Group — remove port 5000 after Nginx is confirmed working
 - [ ] Enable automatic OS security updates: `sudo unattended-upgrades`
 - [ ] Set up daily RDS automated backups with 7-day retention
-- [ ] Rotate `JWT_SECRET` and `ANTHROPIC_API_KEY` every 90 days
+- [ ] Rotate `JWT_SECRET` and `HUGGINGFACE_API_KEY` every 90 days
 
 ---
 

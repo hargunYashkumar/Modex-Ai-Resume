@@ -34,7 +34,7 @@ if [ ! -f backend/.env ]; then
   echo "  DATABASE_URL      — your PostgreSQL connection string"
   echo "  GOOGLE_CLIENT_ID  — from Google Cloud Console"
   echo "  GOOGLE_CLIENT_SECRET"
-  echo "  ANTHROPIC_API_KEY — from console.anthropic.com"
+  echo "  HUGGINGFACE_API_KEY — from huggingface.co/settings/tokens (DeepSeek via Inference API)"
   echo ""
   read -p "Press Enter after editing backend/.env to continue..." _
 else

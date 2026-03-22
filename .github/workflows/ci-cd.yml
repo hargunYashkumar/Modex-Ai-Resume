@@ -59,7 +59,7 @@ jobs:
           JWT_SECRET:        test-secret-for-ci-only-not-used-in-prod
           NODE_ENV:          test
           # AI routes are mocked in tests — real key not needed
-          ANTHROPIC_API_KEY: test-placeholder
+          HUGGINGFACE_API_KEY: test-placeholder
           GOOGLE_CLIENT_ID:  test-placeholder
           FRONTEND_URL:      http://localhost:3000
 

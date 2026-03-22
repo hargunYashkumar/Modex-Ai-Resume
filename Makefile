@@ -102,7 +102,7 @@ check-env: ## Verify required env vars are set
 	@echo "Checking backend .env..."
 	@cd backend && node -e " \
 		require('dotenv').config(); \
-		const req = ['DATABASE_URL','JWT_SECRET','GOOGLE_CLIENT_ID','ANTHROPIC_API_KEY']; \
+		const req = ['DATABASE_URL','JWT_SECRET','GOOGLE_CLIENT_ID','HUGGINGFACE_API_KEY']; \
 		const missing = req.filter(k => !process.env[k]); \
 		if (missing.length) { console.error('Missing:', missing.join(', ')); process.exit(1); } \
 		else console.log('All required env vars present ✓'); \

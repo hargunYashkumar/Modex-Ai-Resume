@@ -5,13 +5,13 @@
 ```
 Browser (React SPA)
   │
-  ├── /api/*  →  Express API (Node.js)
-  │               ├── PostgreSQL (RDS)
-  │               ├── Claude AI (Anthropic SDK)
+  ├── /api/*  →  Express API (Node.js) — e.g. Vercel serverless
+  │               ├── PostgreSQL (Neon in production, or local / RDS / Docker)
+  │               ├── DeepSeek via Hugging Face Inference API
   │               └── S3 (file uploads, optional)
   │
   ├── /r/:token  →  Public resume view (no auth)
-  └── /*          →  React Router SPA
+  └── /*          →  React Router SPA — e.g. Vercel static frontend
 ```
 
 ---
@@ -135,7 +135,7 @@ Request
 
 | Service | File | Responsibility |
 |---------|------|----------------|
-| `aiService` | `services/aiService.js` | Anthropic SDK wrapper, retry logic, JSON parsing |
+| `aiService` | `services/aiService.js` | Hugging Face Inference API, DeepSeek model chain, retry logic, JSON parsing |
 | `uploadService` | `services/uploadService.js` | S3 in prod, local disk in dev |
 | `emailService` | `services/emailService.js` | SES/SendGrid/console-log email sending |
 
@@ -170,6 +170,10 @@ audit_logs            — immutable event log
 - `password_reset_tokens.token_hash` is SHA-256 of the raw token. The raw token is only ever in the URL; the DB stores only the hash.
 - All UUIDs use `uuid_generate_v4()` via the `uuid-ossp` extension.
 
+### Production database (Neon)
+
+For **Vercel** + serverless, use **[Neon](https://neon.tech)** (or compatible PostgreSQL). Set `DATABASE_URL` to the connection string from the Neon dashboard (use the **pooled** connection string for serverless backends to avoid exhausting connections). Migrations: `npm run db:migrate` against that URL (locally or in CI).
+
 ---
 
 ## Security Checklist
@@ -188,7 +192,7 @@ audit_logs            — immutable event log
 - [x] Error messages: no stack traces in production responses
 - [ ] TODO: Add refresh token rotation (current JWTs are 7d, stateless)
 - [ ] TODO: Add CAPTCHA on register/login for bot protection
-- [ ] TODO: Enable RDS encryption at rest
+- [ ] TODO: Enable provider encryption at rest (Neon / RDS as applicable)
 
 ---
 
@@ -200,13 +204,14 @@ audit_logs            — immutable event log
 |----------|----------|---------|-------------|
 | `NODE_ENV` | No | development | |
 | `PORT` | No | 5000 | |
-| `DATABASE_URL` | Yes | — | PostgreSQL connection string |
+| `DATABASE_URL` | Yes | — | PostgreSQL URL (local, Docker, **Neon**, RDS, etc.) |
 | `JWT_SECRET` | Yes | — | ≥32 char random string |
 | `JWT_EXPIRES_IN` | No | 7d | |
 | `GOOGLE_CLIENT_ID` | Yes | — | OAuth 2.0 client ID |
 | `GOOGLE_CLIENT_SECRET` | Yes | — | OAuth 2.0 secret |
-| `ANTHROPIC_API_KEY` | Yes | — | `sk-ant-...` |
-| `FRONTEND_URL` | Yes | http://localhost:3000 | For CORS + email links |
+| `HUGGINGFACE_API_KEY` | Yes (live AI) | — | Hugging Face token; powers **DeepSeek** models in `aiService.js` |
+| `AI_MOCK_MODE` | No | — | Set `true` to return mock JSON without calling HF |
+| `FRONTEND_URL` | Yes | http://localhost:3000 | For CORS + email links (use Vercel frontend URL in production) |
 | `EMAIL_PROVIDER` | No | log | `log` / `ses` / `sendgrid` |
 | `EMAIL_FROM` | No | noreply@modex.app | Sender address |
 | `AWS_ACCESS_KEY_ID` | If S3 | — | |
@@ -215,10 +220,11 @@ audit_logs            — immutable event log
 | `AWS_S3_BUCKET` | If S3 | — | |
 | `AWS_SES_REGION` | If SES email | ap-south-1 | |
 | `SENDGRID_API_KEY` | If SendGrid | — | |
+| `ANTHROPIC_API_KEY` | No | — | Not used by current `aiService`; optional legacy |
 
 ### Frontend
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `VITE_API_URL` | Yes | `/api` in prod, `http://localhost:5000/api` in dev |
+| `VITE_API_URL` | Yes | **Absolute backend URL** in production when frontend and backend are separate Vercel projects, e.g. `https://your-backend.vercel.app`. Dev: e.g. `http://localhost:5000` (see `frontend/.env.example`) |
 | `VITE_GOOGLE_CLIENT_ID` | Yes | Same as backend `GOOGLE_CLIENT_ID` |

@@ -1,14 +1,14 @@
 # Modex 🚀
 
-An AI-powered resume builder with job matching, skill gap analysis, and course recommendations — built with React, Node.js, PostgreSQL, and Claude AI.
-r r2 r3 r4
+An AI-powered resume builder with job matching, skill gap analysis, and course recommendations — built with React, Node.js, PostgreSQL, and **DeepSeek** models via the **Hugging Face Inference API**.
+
 ## Features
 
 - **AI Resume Parser** — upload PDF/DOCX, AI extracts every detail instantly
 - **5 Professional Templates** — Modern, Minimal, Executive, Sidebar, Creative
 - **Full Customisation** — colours, fonts, font size, spacing, section visibility
 - **ATS Scoring** — real-time compatibility score with section-level feedback
-- **AI Bullet Improver** — Claude rewrites bullet points with impact metrics
+- **AI Bullet Improver** — DeepSeek rewrites bullet points with impact metrics
 - **AI Summary Generator** — generate a professional summary in one click
 - **Resume Tailoring** — tailor your resume to any job description with match score
 - **Job Matching** — AI surfaces the roles you're most qualified for right now
@@ -25,11 +25,24 @@ r r2 r3 r4
 |----------|------------|
 | Frontend | React 18, Vite, Tailwind CSS, Framer Motion, Zustand |
 | Backend  | Node.js 18+, Express.js |
-| Database | PostgreSQL 16, node-pg-migrate |
-| AI       | Anthropic Claude (claude-opus-4-5) |
+| Database | PostgreSQL (local, Docker, or **[Neon](https://neon.tech)** serverless in production) |
+| Migrations | node-pg-migrate |
+| AI       | **Hugging Face Inference API** — **DeepSeek** model chain (`aiService.js`) |
 | Auth     | Google OAuth 2.0 + JWT (HS256) |
 | Export   | jsPDF + html2canvas (dynamic import) |
-| DevOps   | Docker, PM2, GitHub Actions, AWS EC2 + RDS |
+| Hosting  | **[Vercel](https://vercel.com)** — separate projects for frontend + backend (serverless) |
+| DevOps   | Docker, PM2, GitHub Actions; optional AWS EC2 + RDS (see `docs/AWS_DEPLOYMENT.md`) |
+
+## Production deployment (current)
+
+| Component | Typical setup |
+|-----------|----------------|
+| **Frontend** | Vercel project, root `frontend/` — static Vite build |
+| **Backend** | Vercel project, root `backend/` — Express as serverless function (`api/index.js`) |
+| **Database** | **[Neon](https://neon.tech)** PostgreSQL — set `DATABASE_URL` to the Neon connection string (pooled URI recommended for serverless) |
+| **AI** | **[Hugging Face](https://huggingface.co/settings/tokens)** — `HUGGINGFACE_API_KEY`; models are DeepSeek variants configured in `backend/src/services/aiService.js` |
+
+Step-by-step: [`VERCEL_SETUP.md`](VERCEL_SETUP.md). For AWS instead of Vercel: [`docs/AWS_DEPLOYMENT.md`](docs/AWS_DEPLOYMENT.md).
 
 ## Quick Start
 
@@ -79,6 +92,7 @@ modex/
     ├── QUICKSTART.md
     ├── SETUP.md
     ├── ARCHITECTURE.md
+    ├── PROJECT_REPORT.md
     └── AWS_DEPLOYMENT.md
 ```
 
@@ -86,13 +100,9 @@ modex/
 
 15 tables: `users`, `user_profiles`, `resumes`, `resume_versions`, `work_experiences`, `educations`, `projects`, `certifications`, `resume_shares`, `user_sessions`, `password_reset_tokens`, `job_searches`, `saved_jobs`, `course_recommendations`, `audit_logs`
 
-## Deploying to AWS (Free Tier)
+## CI / GitHub Actions
 
-See [`docs/AWS_DEPLOYMENT.md`](docs/AWS_DEPLOYMENT.md) — 13-step guide for EC2 t2.micro + RDS db.t3.micro.
-
-**GitHub Actions** deploys automatically on push to `main`. Required secrets:
-- `EC2_HOST`, `EC2_SSH_KEY`
-- `VITE_GOOGLE_CLIENT_ID`
+Workflow runs backend tests + migrations and frontend build on pushes to `main`. For **AWS-based** deploys, optional secrets include `EC2_HOST`, `EC2_SSH_KEY`, and `VITE_GOOGLE_CLIENT_ID` — see `docs/AWS_DEPLOYMENT.md`. **Vercel** deploys are configured in the Vercel dashboard (see `VERCEL_SETUP.md`).
 
 ## Useful Commands
 

@@ -203,7 +203,7 @@ This allows only your EC2 to connect to RDS.
     JWT_SECRET=<generate with: openssl rand -base64 64>
     GOOGLE_CLIENT_ID=<your_google_client_id>
     GOOGLE_CLIENT_SECRET=<your_google_client_secret>
-    ANTHROPIC_API_KEY=<your_anthropic_api_key>
+    HUGGINGFACE_API_KEY=<your_huggingface_token>
     FRONTEND_URL=https://yourdomain.com
 
   # Run database migrations
@@ -406,7 +406,7 @@ Save as deploy.sh in project root:
     [ ] JWT_SECRET=<64-char random string>
     [ ] GOOGLE_CLIENT_ID=...
     [ ] GOOGLE_CLIENT_SECRET=...
-    [ ] ANTHROPIC_API_KEY=sk-ant-...
+    [ ] HUGGINGFACE_API_KEY=hf_...
     [ ] FRONTEND_URL=https://yourdomain.com
     [ ] AWS_ACCESS_KEY_ID=...      (if using S3)
     [ ] AWS_SECRET_ACCESS_KEY=...  (if using S3)
